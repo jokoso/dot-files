@@ -1,0 +1,281 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# Mod key
+set $mod Mod1
+
+# Font
+#font pango:DejaVu Sans Mono 8
+font pango: System San Francisco Display 10
+
+# Drag windows (use Mouse+$mod)
+floating_modifier $mod
+
+# Terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# Move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# Split horizontal
+bindsym $mod+h split h
+
+# Split vertical
+bindsym $mod+v split v
+
+# Fullscreen mode
+bindsym $mod+f fullscreen toggle
+
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focus parent container
+bindsym $mod+a focus parent
+
+# Focus child container
+bindsym $mod+c focus child
+
+# Name workspaces
+set $workspace1 "1 "
+set $workspace2 "2 "
+set $workspace3 "3 "
+set $workspace4 "4 "
+set $workspace5 "5 "
+set $workspace6 "6 "
+set $workspace7 "7 "
+set $workspace8 "8 "
+set $workspace9 "9 "
+set $workspace10 "10 "
+
+# Switch to workspace
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym l resize shrink height 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
+
+        # Back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+
+set $base00 #101218
+set $base01 #1f222d
+set $base02 #252936
+set $base03 #7780a1
+set $base04 #C0C5CE
+set $base05 #d1d4e0
+set $base06 #C9CCDB
+set $base07 #ffffff
+set $base08 #ee829f
+set $base09 #f99170
+set $base0A #ffefcc
+set $base0B #a5ffe1
+set $base0C #97e0ff
+set $base0D #97bbf7
+set $base0E #c0b7f9
+set $base0F #fcc09e
+
+# Rofi
+bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 648 -opacity "85" -bw 0 -bc "$base01" -bg "$base01" -fg "$base07" -hlbg "$base01" -hlfg "#9575cd" -font "System San Francisco Display 18"
+
+#The window background and border color should be specified separate. The key color-window contains a pair background,border. An example for Xresources file:
+#
+#           ! State:           'bg',     'fg',     'bgalt',  'hlbg',   'hlfg'
+#           rofi.color-normal: #fdf6e3,  #002b36,  #eee8d5,  #586e75,  #eee8d5
+#           rofi.color-urgent: #fdf6e3,  #dc322f,  #eee8d5,  #dc322f,  #fdf6e3
+#           rofi.color-active: #fdf6e3,  #268bd2,  #eee8d5,  #268bd2,  #fdf6e3
+#
+#           !                  'background', 'border'
+#           rofi.color-window: #fdf6e3,      #002b36
+#
+#       Same settings can also be specified on command-line:
+#
+#       $ rofi -color-normal "#fdf6e3,#002b36,#eee8d5,#586e75,#eee8d5"
+
+
+# i3bar w. i3blocks
+bar {
+  #font pango: System San Francisco Display, FontAwesome 9
+  font pango: Terminus, FontAwesome 9
+  status_command i3blocks -c /home/jokoso/.config/i3/i3blocks.conf
+  #tray_output primary
+  colors {
+    separator $base03
+    background $base01
+    statusline $base05
+#                      Border  Background Text
+    focused_workspace  $base01 $base01    $base07
+    active_workspace   $base01 $base02    $base03
+    inactive_workspace $base01 $base01    $base03
+    urgent_workspace   $base01 $base01    $base08
+  }
+  position bottom
+}
+
+# Window colors
+#                         Border  Background Text    Indicator
+client.focused          $base01 $base01    $base07 $base0F
+client.focused_inactive $base02 $base02    $base03 $base0F
+client.unfocused        $base02 $base02    $base03 $base0F
+client.urgent           $base02 $base08    $base00 $base0F
+
+# Lock screen
+bindsym $mod+shift+x exec ~/i3lock-extra -m pixelize -p 10
+# Automatically lock X on suspend, lid close, etc.
+exec --no-startup-id xss-lock -- ~/i3lock-extra -m pixelize -p 10
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
+bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
+
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+
+# Set the wallpaper
+exec_always --no-startup-id feh --bg-scale ~/Pictures/louise-2016-jan.jpg
+
+# Compton
+#exec --no-startup-id compton -o 0.3 --backend glx --vsync opengl -b -i 1.0 --config ~/.config/compton.conf
+#exec --no-startup-id compton -b --config ~/.config/compton.conf
+
+# Assign applications to specific workspaces
+#assign [class="Firefox"] $workspace1
+assign [class="google-chrome"] $workspace1
+assign [class="SpiderOakONE"] $workspace8
+#assign [class="Spotify"] $workspace10
+for_window [title="Spotify"] move workspace $workspace10
+
+# Automatically run the following applications on startup
+#exec --no-startup-id firefox
+exec --no-startup-id google-chrome-stable
+exec --no-startup-id spotify
+exec --no-startup-id SpiderOakONE
+
+# Bind media keys
+bindsym $mod+Down exec playerctl play-pause
+bindsym $mod+Left exec playerctl previous
+bindsym $mod+Right exec playerctl next
+
+# Thin borders
+hide_edge_borders both
+
+# Sticky window
+bindsym $mod+Shift+s sticky toggle
+
+# Float the following applications
+for_window [class="Skype"] floating enable
+for_window [class="Lxappearance"] floating enable
+
+# Multiple monitors setup
+# exec_always --no-startup-id xrandr --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --off --output DVI-I-3 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-2 --mode 1920x1080 --pos 1920x0 --rotate normal
+#workspace $workspace1 output DVI-I-2
+#workspace $workspace2 output DVI-I-2
+#workspace $workspace3 output DVI-I-2
+# ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Alex Booker's config (Master branch):
+## Constants
+#
+#  set $monitor1 "DVI-I-1"
+#  set $monitor2 "HDMI-0"
+#
+## General Configuration
+#  font pango:System San Francisco Display 10
+#  floating_modifier $mod
+#  hide_edge_borders both
+#  new_window none
+#  smart_borders on
+#  gaps inner 0
+#  gaps outer 0
+#
+## Program-Related Bindings
+#  bindsym $mod+Shift+f exec firefox
+#  bindsym $mod+Return exec i3-sensible-terminal
+#  bindsym $mod+d exec rofi -show run
+#  # bindsym --release Print exec imgur-screenshot
+#
+## Workspace Monitors
+#  workspace $workspace1 output $monitor1
+#  workspace $workspace2 output $monitor1
+#  workspace $workspace3 output $monitor1
+#  workspace $workspace4 output $monitor1
+#  workspace $workspace5 output $monitor1
+#  workspace $workspace6 output $monitor1
+#  workspace $workspace9 output $monitor1
+#  workspace $workspace10 output $monitor1
+#
+## Floating
+#  for_window [class="Lxappearance"] floating enable
+#  for_window [class="Seahorse"] floating enable
+#  for_window [class="Pavucontrol"] floating enable
+#

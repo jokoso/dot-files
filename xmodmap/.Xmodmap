@@ -1,0 +1,7 @@
+! The first keysym is used when no modifier key is pressed in conjunction with
+! this key, the second with Shift, the third when the Mode_switch key is used
+! with this key and the fourth when both the Mode_switch and Shift keys are
+! used.
+
+! keycode  48 = dead_acute dead_diaeresis dead_acute dead_diaeresis apostrophe quotedbl apostrophe
+! keycode  48 = apostrophe quotedbl apostrophe quotedbl dead_acute dead_diaeresis
